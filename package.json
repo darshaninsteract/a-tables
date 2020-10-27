@@ -1,13 +1,14 @@
 {
   "name": "a-tables",
-  "version": "1.5.9",
+  "version": "0.0.1",
   "main": "lib/index.js",
-  "description": "Editable table library",
-  "author": "darshan",
+  "description": "Editor JS Editable table library",
+  "author": "darshan <darshanparihar1@gmail.com>",
   "license": "MIT",
   "scripts": {
     "test": "mocha ./test/test.js --timeout 1000000",
     "lint": "eslint ./src/index.js --fix",
+    "build": "./node_modules/.bin/babel src --out-file ./build/a-table.js",
     "build:js": "npm-run-all -p build:lib build:global",
     "build:lib": "npm run babel",
     "build:global": "browserify ./src/index.js -t babelify -p licensify --standalone aTable -o ./build/a-table.js && npm run build:global:min",
