@@ -1,4 +1,4 @@
-import aTemplate from 'a-template';
+var aTemplate = require("a-template");
 import clone from 'clone';
 import extend from 'deep-extend';
 import template from './table.html';
