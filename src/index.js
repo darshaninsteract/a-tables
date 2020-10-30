@@ -680,6 +680,21 @@ export default class aTable extends aTemplate {
     const data = this.data;
     data.showMenu = false;
     const self = this;
+    // TODO: move below condition in override method
+    // code start
+    var tableLength = self._getTableLength(this.data.row);
+    if(data.minCol){
+      if(tableLength.x === data.minCol){
+        this.update();
+        return
+      }    
+    }
+
+    if(tableLength.x ===1 ){ 
+      this.update();
+      return
+    }
+    // code end
     const points = this.getAllPoints();
     const point1 = this.getLargePoint.apply(null, points);
     const newpoint = { x: parseInt(selectedno), y: 0, width: 1, height: point1.height };
@@ -705,6 +720,30 @@ export default class aTable extends aTemplate {
     const data = this.data;
     data.showMenu = false;
     const self = this;
+    // TODO: move below condition in override method
+      // code start
+      var tableLength = self._getTableLength(this.data.row);
+      if(data.minRow){
+        if(tableLength.y === data.minRow ){ 
+          this.update();
+          return
+        }    
+      }
+
+      //deafault 1 row required
+      if(tableLength.y === 1 ){
+        this.update();
+        return
+      }
+
+      //if withHeader then header do not delete
+      if(data.withHeader && parseInt(selectedno) === 0){
+        if(data.row[0].col[0].type === 'th'){
+          this.update();
+          return
+        }
+      }
+      //code end
     const points = this.getAllPoints();
     const point1 = this.getLargePoint.apply(null, points);
     selectedno = parseInt(selectedno);
@@ -1081,6 +1120,12 @@ export default class aTable extends aTemplate {
 
   insertColRight(selectedno) {
     const data = this.data;
+    // TODO: move below condition in override method
+      // code start
+      if(data.columnInsert === false){
+        return
+      }
+      // code end
     data.selectedRowNo = parseInt(selectedno);
     data.showMenu = false;
     const self = this;
@@ -1112,6 +1157,12 @@ export default class aTable extends aTemplate {
 
   insertColLeft(selectedno) {
     const data = this.data;
+    // TODO: move below condition in override method
+      // code start
+      if(data.columnInsert === false){
+        return
+      }
+      // code end
     selectedno = parseInt(selectedno);
     data.selectedRowNo = selectedno + 1;
     data.showMenu = false;
@@ -1159,6 +1210,12 @@ export default class aTable extends aTemplate {
 
   insertRowBelow(selectedno) {
     const data = this.data;
+    // TODO: move below condition in override method
+      // code start
+      if(data.rowInsert === false){
+        return
+      }
+      // code end
     data.showMenu = false;
     data.selectedColNo = parseInt(selectedno);
     const self = this;
@@ -1211,6 +1268,12 @@ export default class aTable extends aTemplate {
 
   insertRowAbove(selectedno) {
     const data = this.data;
+    // TODO: move below condition in override method
+      // code start
+      if(data.rowInsert === false){
+        return
+      }
+      // code end
     data.showMenu = false;
     data.selectedColNo = parseInt(selectedno) + 1;
     const self = this;
