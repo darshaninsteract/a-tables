@@ -90,8 +90,9 @@ export default class aTable extends aTemplate {
     this.convert = {};
     this.convert.getStyleByAlign = this.getStyleByAlign;
     this.convert.setClass = this.setClass;
+    const wrapperId = `wrapper_${this.id}`
     const html = `
-    <div class='a-table-container'>
+    <div id='${wrapperId}' class='a-table-container'>
         <div data-id='${this.menu_id}'></div>
         <div class='a-table-outer'>
           <div class='a-table-inner'>
@@ -102,6 +103,17 @@ export default class aTable extends aTemplate {
     util.before(selector, html);
     util.removeElement(selector);
     this.update();
+    /**
+     * handle context menu hide if clicked outside table
+     */
+    let self = this;
+    const wrapperElement = document.getElementById(wrapperId);
+    document.addEventListener('click', function(event) {
+      var isClickInsideElement = wrapperElement.contains(event.target);
+      if (!isClickInsideElement && event.target.tagName !== 'TH') {
+          self.unselect();
+      }
+    });
   }
 
   highestRow() {

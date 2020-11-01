@@ -4152,14 +4152,29 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
     _this.convert = {};
     _this.convert.getStyleByAlign = _this.getStyleByAlign;
     _this.convert.setClass = _this.setClass;
-    var html = "\n    <div class='a-table-container'>\n        <div data-id='".concat(_this.menu_id, "'></div>\n        <div class='a-table-outer'>\n          <div class='a-table-inner'>\n            <div data-id='").concat(_this.id, "'></div>\n          </div>\n        </div>\n    </div>");
+    var wrapperId = "wrapper_".concat(_this.id);
+    var html = "\n    <div id='".concat(wrapperId, "' class='a-table-container'>\n        <div data-id='").concat(_this.menu_id, "'></div>\n        <div class='a-table-outer'>\n          <div class='a-table-inner'>\n            <div data-id='").concat(_this.id, "'></div>\n          </div>\n        </div>\n    </div>");
 
     _util["default"].before(selector, html);
 
     _util["default"].removeElement(selector);
 
     _this.update();
+    /**
+     * handle context menu hide if clicked outside table
+     */
 
+
+    var self = _assertThisInitialized(_this);
+
+    var wrapperElement = document.getElementById(wrapperId);
+    document.addEventListener('click', function (event) {
+      var isClickInsideElement = wrapperElement.contains(event.target);
+
+      if (!isClickInsideElement && event.target.tagName !== 'TH') {
+        self.unselect();
+      }
+    });
     return _this;
   }
 
