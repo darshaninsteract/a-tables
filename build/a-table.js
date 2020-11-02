@@ -4953,9 +4953,8 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
       if (tableLength.y === 1) {
         this.update();
         return;
-      }
+      } //if withHeader then header do not delete
 
-      debugger; //if withHeader then header do not delete
 
       if (data.withHeader && parseInt(selectedno) == 0) {
         if (data.row[0].col[0].type === 'th') {

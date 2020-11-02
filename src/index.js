@@ -747,7 +747,7 @@ export default class aTable extends aTemplate {
         this.update();
         return
       }
-      debugger
+      
       //if withHeader then header do not delete
       if(data.withHeader && parseInt(selectedno) == 0){
         if(data.row[0].col[0].type === 'th'){
