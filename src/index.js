@@ -614,6 +614,16 @@ export default class aTable extends aTemplate {
   insertRow(a, newrow) {
     const data = this.data;
     const row = data.row;
+    
+    // TODO: move below condition in override method
+    // code start
+    //if withHeader then do not add row above header
+    if(data.withHeader && a == 0){
+      this.update();
+      return
+    }
+    // code end
+
     if (row[a]) {
       row.splice(a, 0, { col: newrow });
     } else if (row.length === a) {
