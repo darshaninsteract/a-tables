@@ -87,6 +87,7 @@ export default class aTable extends aTemplate {
     data.inputMode = 'table';
     data.cellClass = '';
     data.history.push(clone(data.row));
+    data.withHeader = false;
     this.convert = {};
     this.convert.getStyleByAlign = this.getStyleByAlign;
     this.convert.setClass = this.setClass;
@@ -733,15 +734,15 @@ export default class aTable extends aTemplate {
     data.showMenu = false;
     const self = this;
     // TODO: move below condition in override method
-      // code start
-      var tableLength = self._getTableLength(this.data.row);
-      if(data.minRow){
-        if(tableLength.y === data.minRow ){ 
-          this.update();
-          return
-        }    
-      }
-
+    // code start
+    var tableLength = self._getTableLength(this.data.row);
+    if(data.minRow){
+      if(tableLength.y === data.minRow ){ 
+        this.update();
+        return
+      }    
+    }
+    
       //deafault 1 row required
       if(tableLength.y === 1 ){
         this.update();
@@ -749,7 +750,7 @@ export default class aTable extends aTemplate {
       }
 
       //if withHeader then header do not delete
-      if(data.withHeader && parseInt(selectedno) === 0){
+      if(data.withHeader && parseInt(selectedno) == 0){
         if(data.row[0].col[0].type === 'th'){
           this.update();
           return
