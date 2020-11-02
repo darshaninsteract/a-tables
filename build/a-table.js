@@ -4149,7 +4149,6 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
     data.inputMode = 'table';
     data.cellClass = '';
     data.history.push((0, _clone["default"])(data.row));
-    data.withHeader = false;
     _this.convert = {};
     _this.convert.getStyleByAlign = _this.getStyleByAlign;
     _this.convert.setClass = _this.setClass;
@@ -4954,8 +4953,9 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
       if (tableLength.y === 1) {
         this.update();
         return;
-      } //if withHeader then header do not delete
+      }
 
+      debugger; //if withHeader then header do not delete
 
       if (data.withHeader && parseInt(selectedno) == 0) {
         if (data.row[0].col[0].type === 'th') {

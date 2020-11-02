@@ -87,7 +87,6 @@ export default class aTable extends aTemplate {
     data.inputMode = 'table';
     data.cellClass = '';
     data.history.push(clone(data.row));
-    data.withHeader = false;
     this.convert = {};
     this.convert.getStyleByAlign = this.getStyleByAlign;
     this.convert.setClass = this.setClass;
@@ -748,7 +747,7 @@ export default class aTable extends aTemplate {
         this.update();
         return
       }
-
+      debugger
       //if withHeader then header do not delete
       if(data.withHeader && parseInt(selectedno) == 0){
         if(data.row[0].col[0].type === 'th'){
