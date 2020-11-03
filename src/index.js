@@ -935,6 +935,7 @@ export default class aTable extends aTemplate {
       if (!html) {
         html = e.clipboardData.getData('text/plain');
       }
+      debugger
       this.processPaste(html);
     } else if (window.clipboardData) {
       this.getClipBoardData();
@@ -973,6 +974,7 @@ export default class aTable extends aTemplate {
     const selectedPoint = this.getSelectedPoint();
     const tableHtml = pastedData.match(/<table(([\n\r\t]|.)*?)>(([\n\r\t]|.)*?)<\/table>/i);
     const data = this.data;
+    debugger
     if (tableHtml && tableHtml[0]) {
       const newRow = this.parse(tableHtml[0],'text');
       if (newRow && newRow.length) {
@@ -986,6 +988,7 @@ export default class aTable extends aTemplate {
     }
     // for excel;
     const row = this.parseText(pastedData);
+    debugger
     if (row && row[0] && row[0].col && row[0].col.length > 1) {
       const selectedPoint = this.getSelectedPoint();
       this.insertTable(row,{
@@ -994,13 +997,16 @@ export default class aTable extends aTemplate {
       });
       this.update();
       data.history.push(clone(data.row));
+      debugger
     } else {
       if (e.clipboardData) {
         let content = e.clipboardData.getData('text/plain');
         document.execCommand('insertText', false, content);
+        debugger
       } else if (window.clipboardData) {
         let content = window.clipboardData.getData('Text');
         util.replaceSelectionWithHtml(content);
+        debugger
       }
     }
   }
