@@ -113,12 +113,7 @@ export default class aTable extends aTemplate {
       if (!isClickInsideElement && event.target.tagName !== 'TH') {
           self.unselect();
       }
-    });
-
-    //Disabled paste temporarily
-    document.addEventListener("paste", function (e) {
-      e.preventDefault(); //prevent the default behaviour 
-    })
+    });    
 
   }
 
@@ -851,8 +846,7 @@ export default class aTable extends aTemplate {
     } else if (type === 'copy') {
       this.copyTable(e);
     } else if (type === 'paste') {
-      return;
-      //this.pasteTable(e); //paste disable temporarily
+      this.pasteTable(e);
     } else if (type === 'mousedown' && !isSmartPhone) {
       if (this.e.button !== 2 && !this.e.ctrlKey) {
         this.mousedown = true;
