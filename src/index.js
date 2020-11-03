@@ -114,6 +114,12 @@ export default class aTable extends aTemplate {
           self.unselect();
       }
     });
+
+    //Disabled paste temporarily
+    document.addEventListener("paste", function (e) {
+      e.preventDefault(); //prevent the default behaviour 
+    })
+
   }
 
   highestRow() {
@@ -830,7 +836,7 @@ export default class aTable extends aTemplate {
     data.mode = 'cell';
     data.selectedRowNo = -1;
     data.selectedColNo = -1;
-    data.showMenu = false;
+    data.showMenu = false; 
     if (type === 'compositionstart') {
       data.beingInput = true;
     } else if (type === 'compositionend') {
@@ -845,7 +851,8 @@ export default class aTable extends aTemplate {
     } else if (type === 'copy') {
       this.copyTable(e);
     } else if (type === 'paste') {
-      this.pasteTable(e);
+      return;
+      //this.pasteTable(e); //paste disable temporarily
     } else if (type === 'mousedown' && !isSmartPhone) {
       if (this.e.button !== 2 && !this.e.ctrlKey) {
         this.mousedown = true;
@@ -935,7 +942,6 @@ export default class aTable extends aTemplate {
       if (!html) {
         html = e.clipboardData.getData('text/plain');
       }
-      debugger
       this.processPaste(html);
     } else if (window.clipboardData) {
       this.getClipBoardData();
@@ -974,7 +980,6 @@ export default class aTable extends aTemplate {
     const selectedPoint = this.getSelectedPoint();
     const tableHtml = pastedData.match(/<table(([\n\r\t]|.)*?)>(([\n\r\t]|.)*?)<\/table>/i);
     const data = this.data;
-    debugger
     if (tableHtml && tableHtml[0]) {
       const newRow = this.parse(tableHtml[0],'text');
       if (newRow && newRow.length) {
@@ -988,7 +993,6 @@ export default class aTable extends aTemplate {
     }
     // for excel;
     const row = this.parseText(pastedData);
-    debugger
     if (row && row[0] && row[0].col && row[0].col.length > 1) {
       const selectedPoint = this.getSelectedPoint();
       this.insertTable(row,{
@@ -997,16 +1001,13 @@ export default class aTable extends aTemplate {
       });
       this.update();
       data.history.push(clone(data.row));
-      debugger
     } else {
       if (e.clipboardData) {
         let content = e.clipboardData.getData('text/plain');
         document.execCommand('insertText', false, content);
-        debugger
       } else if (window.clipboardData) {
         let content = window.clipboardData.getData('Text');
         util.replaceSelectionWithHtml(content);
-        debugger
       }
     }
   }

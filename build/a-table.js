@@ -4174,6 +4174,10 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
       if (!isClickInsideElement && event.target.tagName !== 'TH') {
         self.unselect();
       }
+    }); //Disabled paste temporarily
+
+    document.addEventListener("paste", function (e) {
+      e.preventDefault(); //prevent the default behaviour 
     });
     return _this;
   }
@@ -5076,7 +5080,7 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
       } else if (type === 'copy') {
         this.copyTable(e);
       } else if (type === 'paste') {
-        this.pasteTable(e);
+        return; //this.pasteTable(e); //paste disable temporarily
       } else if (type === 'mousedown' && !isSmartPhone) {
         if (this.e.button !== 2 && !this.e.ctrlKey) {
           this.mousedown = true;
@@ -5181,7 +5185,6 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
           html = e.clipboardData.getData('text/plain');
         }
 
-        debugger;
         this.processPaste(html);
       } else if (window.clipboardData) {
         this.getClipBoardData();
@@ -5227,7 +5230,6 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
       var selectedPoint = this.getSelectedPoint();
       var tableHtml = pastedData.match(/<table(([\n\r\t]|.)*?)>(([\n\r\t]|.)*?)<\/table>/i);
       var data = this.data;
-      debugger;
 
       if (tableHtml && tableHtml[0]) {
         var newRow = this.parse(tableHtml[0], 'text');
@@ -5244,7 +5246,6 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
 
 
       var row = this.parseText(pastedData);
-      debugger;
 
       if (row && row[0] && row[0].col && row[0].col.length > 1) {
         var _selectedPoint = this.getSelectedPoint();
@@ -5255,18 +5256,14 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
         });
         this.update();
         data.history.push((0, _clone["default"])(data.row));
-        debugger;
       } else {
         if (e.clipboardData) {
           var content = e.clipboardData.getData('text/plain');
           document.execCommand('insertText', false, content);
-          debugger;
         } else if (window.clipboardData) {
           var _content = window.clipboardData.getData('Text');
 
           _util["default"].replaceSelectionWithHtml(_content);
-
-          debugger;
         }
       }
     }
