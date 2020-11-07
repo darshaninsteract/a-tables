@@ -4175,6 +4175,9 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
         self.unselect();
       }
     });
+    document.addEventListener('scroll', function (e) {
+      self.unselect();
+    });
     return _this;
   }
 
