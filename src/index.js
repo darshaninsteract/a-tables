@@ -115,6 +115,10 @@ export default class aTable extends aTemplate {
       }
     });    
 
+    document.addEventListener('scroll', function(e) {
+      self.unselect();
+    });
+
   }
 
   highestRow() {
