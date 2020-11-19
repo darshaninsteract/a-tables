@@ -1468,6 +1468,19 @@ export default class aTable extends aTemplate {
     data.history.push(clone(data.row));
     this.update();
   }
+  changeCellToBlank() {
+    const data = this.data;
+    data.row.forEach((item, i) => {
+      item.col.forEach((obj, t) => {
+        if (obj.selected) {
+          obj.value = '<pen class="dit-pen">' + obj.value + '</pen>';
+        }
+      });
+    });
+    data.showMenu = false;
+    data.history.push(clone(data.row));
+    this.update();
+  }
 
   align(align) {
     const data = this.data;
