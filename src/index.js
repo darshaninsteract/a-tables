@@ -851,8 +851,8 @@ export default class aTable extends aTemplate {
     } else if (type === 'copy') {
       this.copyTable(e);
     } else if (type === 'paste') {
-      return;
-      //this.pasteTable(e); //paste disable temporarily
+      //return;
+      this.pasteTable(e); //paste disable temporarily
     } else if (type === 'mousedown' && !isSmartPhone) {
       if (this.e.button !== 2 && !this.e.ctrlKey) {
         this.mousedown = true;
@@ -937,6 +937,7 @@ export default class aTable extends aTemplate {
   }
 
   pasteTable(e) {
+    e.stopPropagation()
     if (e.clipboardData) {
       let html = e.clipboardData.getData('text/html');
       if (!html) {
