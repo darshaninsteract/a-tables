@@ -111,12 +111,16 @@ export default class aTable extends aTemplate {
     document.addEventListener('click', function(event) {
       var isClickInsideElement = wrapperElement.contains(event.target);
       if (!isClickInsideElement && event.target.tagName !== 'TH') {
+        try{
           self.unselect();
+        } catch(error){}
       }
     });    
 
     document.addEventListener('scroll', function(e) {
-      self.unselect();
+      try{
+        self.unselect();
+      } catch(error){}
     });
 
   }

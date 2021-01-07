@@ -547,16 +547,14 @@ var aTemplate = function () {
       if (this.beforeUpdated) {
         this.beforeUpdated();
       }
-      
+
       var _loop = function _loop(i, n) {
         var tem = templates[i];
         var query = '#' + tem;
-        
         var html = _this5.getHtml(tem);
-        
         var target = (0, _util.selector)('[data-id=\'' + tem + '\']');
         if (!target) {
-          (0, _util.selector)(query).insertAdjacentHTML('afterend', '<div data-id="' + tem + '"></div>');
+          if((0, _util.selector)(query)){(0, _util.selector)(query).insertAdjacentHTML('afterend', '<div data-id="' + tem + '"></div>');}
           if (renderWay === 'text') {
             (0, _util.selector)('[data-id=\'' + tem + '\']').innerText = html;
           } else {
@@ -589,7 +587,6 @@ var aTemplate = function () {
       if (this.onUpdated) {
         this.onUpdated(part);
       }
-      
       return this;
     }
   }, {
@@ -4175,11 +4172,15 @@ var aTable = /*#__PURE__*/function (_aTemplate) {
       var isClickInsideElement = wrapperElement.contains(event.target);
 
       if (!isClickInsideElement && event.target.tagName !== 'TH') {
-        self.unselect();
+        try {
+          self.unselect();
+        } catch (error) {}
       }
     });
     document.addEventListener('scroll', function (e) {
-      self.unselect();
+      try {
+        self.unselect();
+      } catch (error) {}
     });
     return _this;
   }
