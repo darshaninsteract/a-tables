@@ -547,13 +547,11 @@ var aTemplate = function () {
       if (this.beforeUpdated) {
         this.beforeUpdated();
       }
-      
+
       var _loop = function _loop(i, n) {
         var tem = templates[i];
         var query = '#' + tem;
-        
         var html = _this5.getHtml(tem);
-        
         var target = (0, _util.selector)('[data-id=\'' + tem + '\']');
         if (!target) {
           (0, _util.selector)(query).insertAdjacentHTML('afterend', '<div data-id="' + tem + '"></div>');
@@ -589,7 +587,6 @@ var aTemplate = function () {
       if (this.onUpdated) {
         this.onUpdated(part);
       }
-      
       return this;
     }
   }, {
